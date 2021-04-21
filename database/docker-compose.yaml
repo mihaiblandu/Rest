@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./apisecurity.sql:/docker-entrypoint-initdb.d/apisecurity.sql
+      - ./apisecurity_fix_stored_procedure.sql:/docker-entrypoint-initdb.d/apisecurity_fix_stored_procedure.sql
+      - ./postgres_limited_user.sql:/docker-entrypoint-initdb.d/postgres_limited_user.sql
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: mihai
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
